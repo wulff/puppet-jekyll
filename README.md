@@ -19,6 +19,4 @@ Before you can run Puppet, you must create a file named `settings.pp` in the `ma
 
 Finally, use Puppet to setup all the required packages (you can add `--noop` to perform a dry run):
 
-    sudo puppet --verbose --modulepath=/path/to/puppet-drupal/modules /path/to/puppet-drupal/manifests/site.pp
-
-The sudo manifest assumes that you have created a group named wheel.
+    sudo puppet apply --verbose --modulepath=/path/to/puppet-jekyll/modules/ /path/to/puppet-jekyll/manifests/site.pp
