@@ -23,9 +23,37 @@ class munin {
       source => 'puppet:///modules/munin/nginx.conf',
       require => Package['munin-node'],
       notify => Service['munin-node'];
+
+    # https://github.com/munin-monitoring/contrib/tree/master/plugins/nginx
+
+    '/usr/share/munin/plugins/nginx-combined':
+      source => 'puppet:///modules/munin/nginx-combined.conf',
+      require => Package['munin-node'];
+    '/etc/munin/plugins/nginx_combined_localhost':
+      ensure => '/usr/share/munin/plugins/nginx-combined',
+      require => File['/usr/share/munin/plugins/nginx-combined'],
+      notify => Service['munin-node'];
   }
 
   # disable plugins
+  file {
+    '/etc/munin/plugins/http_loadtime':
+      ensure => absent,
+      require => Package['munin-node'];
+    '/etc/munin/plugins/nfs4_client':
+      ensure => absent,
+      require => Package['munin-node'];
+    '/etc/munin/plugins/nfsd':
+      ensure => absent,
+      require => Package['munin-node'];
+    '/etc/munin/plugins/nfsd4':
+      ensure => absent,
+      require => Package['munin-node'];
+    '/etc/munin/plugins/uptime':
+      ensure => absent,
+      require => Package['munin-node'];
+  }
+
 #  file {
 #    '/etc/munin/plugins/diskstats':
 #      ensure => absent,
@@ -33,25 +61,10 @@ class munin {
 #    '/etc/munin/plugins/fw_packets':
 #      ensure => absent,
 #      require => Package['munin-node'];
-#    '/etc/munin/plugins/http_loadtime':
-#      ensure => absent,
-#      require => Package['munin-node'];
 #    '/etc/munin/plugins/iostat_ios':
 #      ensure => absent,
 #      require => Package['munin-node'];
 #    '/etc/munin/plugins/munin_stats':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/nfs4_client':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/nfsd':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/nfsd4':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/uptime':
 #      ensure => absent,
 #      require => Package['munin-node'];
 #    '/etc/munin/plugins/users':
@@ -61,18 +74,6 @@ class munin {
 
   # enable plugins
   file {
-#    '/etc/munin/plugins/mysql_bytes':
-#      ensure => '/usr/share/munin/plugins/mysql_bytes',
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/mysql_queries':
-#      ensure => '/usr/share/munin/plugins/mysql_queries',
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/mysql_slowqueries':
-#      ensure => '/usr/share/munin/plugins/mysql_slowqueries',
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/mysql_threads':
-#      ensure => '/usr/share/munin/plugins/mysql_threads',
-#      require => Package['munin-node'];
     '/etc/munin/plugins/nginx_request':
       ensure => '/usr/share/munin/plugins/nginx_request',
       require => Package['munin-node'];
