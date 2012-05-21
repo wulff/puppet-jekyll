@@ -28,6 +28,7 @@ class munin {
 
     '/usr/share/munin/plugins/nginx-combined':
       source => 'puppet:///modules/munin/nginx-combined.conf',
+      mode => 755,
       require => Package['munin-node'];
     '/etc/munin/plugins/nginx_combined_localhost':
       ensure => '/usr/share/munin/plugins/nginx-combined',
