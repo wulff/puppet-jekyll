@@ -37,6 +37,14 @@ class nginx {
       require => Package['nginx'],
       notify => Service['nginx'];
 
+    '/etc/nginx/sites-available/gere.mwu.dk.conf':
+      source => 'puppet:///modules/nginx/gere.mwu.dk.conf',
+      require => Package['nginx'];
+    '/etc/nginx/sites-enabled/gere.mwu.dk.conf':
+      ensure => '/etc/nginx/sites-available/gere.mwu.dk.conf',
+      require => File['/etc/nginx/sites-available/gere.mwu.dk.conf'],
+      notify => Service['nginx'];
+
     '/etc/nginx/sites-available/laerdrupal.dk.conf':
       source => 'puppet:///modules/nginx/laerdrupal.dk.conf',
       require => Package['nginx'],
