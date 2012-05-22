@@ -15,4 +15,5 @@ node 'default' {
   include ntp
   include nginx
   include ratatosk
+  include system
 }

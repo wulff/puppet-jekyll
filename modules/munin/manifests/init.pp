@@ -41,6 +41,9 @@ class munin {
     '/etc/munin/plugins/http_loadtime':
       ensure => absent,
       require => Package['munin-node'];
+    '/etc/munin/plugins/nfs_client':
+      ensure => absent,
+      require => Package['munin-node'];
     '/etc/munin/plugins/nfs4_client':
       ensure => absent,
       require => Package['munin-node'];
@@ -54,24 +57,6 @@ class munin {
       ensure => absent,
       require => Package['munin-node'];
   }
-
-#  file {
-#    '/etc/munin/plugins/diskstats':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/fw_packets':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/iostat_ios':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/munin_stats':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#    '/etc/munin/plugins/users':
-#      ensure => absent,
-#      require => Package['munin-node'];
-#  }
 
   # enable plugins
   file {
